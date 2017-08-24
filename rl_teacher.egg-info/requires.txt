@@ -1,0 +1,16 @@
+mujoco-py~=0.5.7
+gym[mujoco]
+mujoco-py
+tqdm
+matplotlib
+ipython
+scipy
+ipdb
+keras
+netifaces
+
+[tf]
+tensorflow~=1.2
+
+[tf_gpu]
+tensorflow-gpu>=1.1
