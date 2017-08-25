@@ -4,3 +4,5 @@ staticfiles
 .env
 db.sqlite3
 MUJOCO_LOG.TXT
+.idea
+__pycache__
