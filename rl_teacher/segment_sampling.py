@@ -4,12 +4,14 @@ import numpy as np
 import gym.spaces.prng as space_prng
 from autodrive.agent.torcs2 import AgentTorcs2
 # from rl_teacher.envs import get_timesteps_per_episode
-
+from drlutils.utils import logger
 def _slice_path(path, segment_length, start_pos=0):
-    return {
+    seg={
         k: np.asarray(v[start_pos:(start_pos + segment_length)])
         for k, v in path.items()
-        if k in ['obs', "actions", 'original_rewards', 'human_obs']}
+        if k in ['obs', "actions", 'original_rewards', 'human_obs','distances']}
+    seg['maxdistance']=seg['distances'].max()
+    return seg
 
 def create_segment_q_states(segment):
     obs_Ds = segment["obs"]
@@ -43,20 +45,27 @@ def random_action(env, ob):
 
 def do_rollout(env, action_function):
     """ Builds a path by running through an environment using a provided function to select actions. """
-    obs, rewards, actions, human_obs = [], [], [], []
+    obs, rewards, actions, human_obs ,distances= [], [], [], [],[]
     max_timesteps_per_episode = 10000
-    ob = env.reset()
+    raw_ob = env.reset()
+    logger.info('get obs {}'.format(raw_ob.shape))
+    ob=raw_ob[:-1]
+    distance=raw_ob[-1]
     # Primary environment loop
     for i in range(max_timesteps_per_episode):
         action = action_function(env, ob)
         obs.append(ob)
-        ob, action, reward, done = env.step((action, 0., [0., 0.], [0., 0.]))
+        raw_ob, action, reward, done = env.step((action, 0., [0., 0.], [0., 0.]))
+        ob=raw_ob[0:-1]
+        distance=raw_ob[-1]
+        logger.info('agent {} running at distance {}'.format(env._agentIdent,distance))
         actions.append(action)
         rgb=env._cur_screen
-        from drlutils.utils import logger
+
         # logger.info("[{:04d}: step".format(env._agentIdent))
         rewards.append(reward)
         human_obs.append(rgb)
+        distances.append(distance)
         if done:
             break
     # Build path dictionary
@@ -64,7 +73,9 @@ def do_rollout(env, action_function):
         "obs": np.array(obs),
         "original_rewards": np.array(rewards),
         "actions": np.array(actions),
-        "human_obs": np.array(human_obs)}
+        "human_obs": np.array(human_obs),
+         'distances':np.array((distances))
+         }
     return path
 
 def basic_segments_from_rand_rollout(n_desired_segments, clip_length_in_seconds,

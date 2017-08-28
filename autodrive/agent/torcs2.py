@@ -80,6 +80,7 @@ class _TorcsBot(object):
                                      speedXDelta,
                                      angleDelta * 10.,
                                      trackPosDelta * 10.,
+                                     status.distFromStart,
                                      ))
         assert (np.isfinite(self._ob_status).all()), 'status has infinite: {}'.format(self._ob_status)
         assert(not np.isnan(self._ob_status).any())

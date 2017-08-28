@@ -85,8 +85,10 @@ class Actor(multiprocess.Process):
                 self.task_q.task_done()
 
     def rollout(self):
-        obs, actions, rewards, avg_action_dists, logstd_action_dists, human_obs = [], [], [], [], [], []
-        ob = filter_ob(self.env.reset())
+        obs, actions, rewards, avg_action_dists, logstd_action_dists, human_obs ,distances=[], [], [], [], [], [], []
+        raw_ob = self.env.reset()
+        ob=raw_ob[:-1]
+        distance=raw_ob[-1]
         for i in range(self.max_timesteps_per_episode):
             action, avg_action_dist, logstd_action_dist = self.act(ob)
 
@@ -95,13 +97,15 @@ class Actor(multiprocess.Process):
             avg_action_dists.append(avg_action_dist)
             logstd_action_dists.append(logstd_action_dist)
 
-            ob, action, reward, done = self.env.step((action, 0., [0., 0.], [0., 0.]))
-            ob = filter_ob(ob)
+            raw_ob, action, reward, done = self.env.step((action, 0., [0., 0.], [0., 0.]))
+            ob = raw_ob[:-1]
+            distance = raw_ob[-1]
             actions.append(action)
 
             rewards.append(reward)
             rgb = self.env._cur_screen
             human_obs.append(rgb)
+            distances.append(distance)
 
             if done or i == self.max_timesteps_per_episode - 1:
                 path = {
@@ -110,7 +114,8 @@ class Actor(multiprocess.Process):
                     "logstd_action_dist": np.concatenate(logstd_action_dists),
                     "rewards": np.array(rewards),
                     "actions": np.array(actions),
-                    "human_obs": np.array(human_obs)}
+                    "human_obs": np.array(human_obs),
+                'distances':np.array(distances)}
                 return path
 
 class ParallelRollout(object):

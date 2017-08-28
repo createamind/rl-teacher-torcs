@@ -339,7 +339,11 @@ class TorcsEnv:
                      'rpm',
                      'track',
                      'trackPos',
-                     'wheelSpinVel']
+                     'wheelSpinVel',
+                     'distFromStart']
+            from drlutils.utils import logger
+            logger.info('distance  from start {}'.format(raw_obs['distFromStart'] ))
+            logger.info('distRaced  {}'.format(raw_obs['distRaced']))
             Observation = col.namedtuple('Observaion', names)
             return Observation(focus=np.array(raw_obs['focus'], dtype=np.float32)/200.,
                                speedX=np.array(raw_obs['speedX'], dtype=np.float32)/300.0,
@@ -351,7 +355,8 @@ class TorcsEnv:
                                rpm=np.array(raw_obs['rpm'], dtype=np.float32)/10000,
                                track=np.array(raw_obs['track'], dtype=np.float32)/200.,
                                trackPos=np.array(raw_obs['trackPos'], dtype=np.float32)/1.,
-                               wheelSpinVel=np.array(raw_obs['wheelSpinVel'], dtype=np.float32))
+                               wheelSpinVel=np.array(raw_obs['wheelSpinVel'], dtype=np.float32),
+                               distFromStart=np.array(raw_obs['distFromStart'],dtype=np.float32))
         else:
             assert(0)
             names = ['focus',

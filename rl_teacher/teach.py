@@ -57,6 +57,14 @@ class TraditionalRLRewardPredictor():
     def path_callback(self, path):
         pass
 
+class SortDeque(deque):
+    """
+    Container for sort
+    """
+    def sort(self,*args,**kwargs):
+        items=[self.pop() for x in range(len(self))]
+        items.sort(*args,**kwargs)
+        self.extend(items)
 class ComparisonRewardPredictor():
     """Predictor that trains a model to predict how much reward is contained in a trajectory segment"""
 
@@ -67,7 +75,7 @@ class ComparisonRewardPredictor():
         self.label_schedule = label_schedule
 
         # Set up some bookkeeping
-        self.recent_segments = deque(maxlen=200)  # Keep a queue of recently seen segments to pull new comparisons from
+        self.recent_segments = SortDeque(maxlen=200)  # Keep a queue of recently seen segments to pull new comparisons from
         self._frames_per_segment = CLIP_LENGTH * 24
         self._steps_since_last_training = 0
         self._n_timesteps_per_predictor_training = 1e2  # How often should we train our predictor?
@@ -133,6 +141,9 @@ class ComparisonRewardPredictor():
             K.learning_phase(): False
         })
         return q_state_reward_pred[0]
+    def samples_from_path(self,path,length):
+        pass
+
 
     def path_callback(self, path):
         path_length = len(path["obs"])
@@ -147,14 +158,22 @@ class ComparisonRewardPredictor():
 
         # If we need more comparisons, then we build them from our recent segments
         if len(self.comparison_collector) < int(self.label_schedule.n_desired_labels):
-            self.comparison_collector.add_segment_pair(
-                random.choice(self.recent_segments),
-                random.choice(self.recent_segments))
+            for i in range(4):
+                seg=self.get_pair(self.recent_segments)
+                self.comparison_collector.add_segment_pair(*seg)
 
         # Train our predictor every X steps
         if self._steps_since_last_training >= int(self._n_timesteps_per_predictor_training):
             self.train_predictor()
             self._steps_since_last_training -= self._steps_since_last_training
+    def get_pair(self,segments):
+        if len(segments)>1:
+            start=random.randint(0,len(segments)-2)
+            segments.sort(key=lambda d : d['maxdistance'])
+            return segments[start],segments[start+1]
+        else:return segments[0],segments[-1]
+
+
 
     def train_predictor(self):
         self.comparison_collector.label_unlabeled_comparisons()
@@ -262,8 +281,9 @@ def main():
         print("Starting random rollouts to generate pretraining segments. No learning will take place...")
         pretrain_segments = segments_from_rand_rollout( n_desired_segments=pretrain_labels * 2,
             clip_length_in_seconds=CLIP_LENGTH, workers=args.workers)
+        pretrain_segments.sort(key= lambda d :d['maxdistance'])
         for i in range(pretrain_labels):  # Turn our random segments into comparisons
-            comparison_collector.add_segment_pair(pretrain_segments[i], pretrain_segments[i + pretrain_labels])
+            comparison_collector.add_segment_pair(pretrain_segments[i], pretrain_segments[i + 1])
 
         # Sleep until the human has labeled most of the pretraining comparisons
         while len(comparison_collector.labeled_comparisons) < int(pretrain_labels * 0.75):
