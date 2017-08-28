@@ -15,7 +15,7 @@ from rl_teacher.comparison_collectors import SyntheticComparisonCollector, Human
 # from rl_teacher.envs import make_with_torque_removed
 from rl_teacher.label_schedules import LabelAnnealer, ConstantLabelSchedule
 from rl_teacher.nn import FullyConnectedMLP
-from rl_teacher.segment_sampling import create_segment_q_states
+from rl_teacher.segment_sampling import create_segment_q_states ,_slice_path
 from rl_teacher.segment_sampling import sample_segment_from_path
 from rl_teacher.segment_sampling import segments_from_rand_rollout
 from rl_teacher.summaries import AgentLogger, make_summary_writer
@@ -141,8 +141,20 @@ class ComparisonRewardPredictor():
             K.learning_phase(): False
         })
         return q_state_reward_pred[0]
-    def samples_from_path(self,path,length):
-        pass
+    def samples_from_path(self,path,segment_length):
+        path_length=len(path['obs'])
+        if path_length < segment_length:return None
+        pos_list=list(range(path_length - segment_length + 1))
+
+        segment_num=int(np.log2(path_length))
+        prob=[p /sum(pos_list) for p in pos_list]
+        start_pos=np.random.choice(pos_list,segment_num,prob)
+        segments=[]
+        for pos in start_pos:
+            segment=_slice_path(path,segment_length,pos)
+            segment["q_states"] = create_segment_q_states(segment)
+            segments.append(segment)
+        return segments
 
 
     def path_callback(self, path):
@@ -152,15 +164,20 @@ class ComparisonRewardPredictor():
         self.agent_logger.log_episode(path)
 
         # We may be in a new part of the environment, so we take new segments to build comparisons from
-        segment = sample_segment_from_path(path, int(self._frames_per_segment))
-        if segment:
-            self.recent_segments.append(segment)
+        # segment = sample_segment_from_path(path, int(self._frames_per_segment))
+        # if segment:
+        #     self.recent_segments.append(segment)
+        #
+        segments=self.samples_from_path(path,int(self._frames_per_segment))
+        if segments:
+            for seg in segments:
+                self.recent_segments.append(seg)
 
         # If we need more comparisons, then we build them from our recent segments
-        if len(self.comparison_collector) < int(self.label_schedule.n_desired_labels):
-            for i in range(4):
-                seg=self.get_pair(self.recent_segments)
-                self.comparison_collector.add_segment_pair(*seg)
+        while len(self.comparison_collector) < int(self.label_schedule.n_desired_labels):
+            if len(self.recent_segments) <10 :break
+            seg=self.get_pair(self.recent_segments)
+            self.comparison_collector.add_segment_pair(*seg)
 
         # Train our predictor every X steps
         if self._steps_since_last_training >= int(self._n_timesteps_per_predictor_training):
@@ -182,13 +199,17 @@ class ComparisonRewardPredictor():
         labeled_comparisons = random.sample(self.comparison_collector.labeled_decisive_comparisons, minibatch_size)
         left_q_states = np.asarray([comp['left']['q_states'] for comp in labeled_comparisons])
         right_q_states = np.asarray([comp['right']['q_states'] for comp in labeled_comparisons])
-
-        _, loss = self.sess.run([self.train_op, self.loss_op], feed_dict={
-            self.segment_placeholder: left_q_states,
-            self.segment_alt_placeholder: right_q_states,
-            self.labels: np.asarray([comp['label'] for comp in labeled_comparisons]),
-            K.learning_phase(): True
-        })
+        lables=np.asarray([comp['label'] for comp in labeled_comparisons])
+        try :
+            _, loss = self.sess.run([self.train_op, self.loss_op], feed_dict={
+                self.segment_placeholder: left_q_states,
+                self.segment_alt_placeholder: right_q_states,
+                self.labels: lables,
+                K.learning_phase(): True
+            })
+        except Exception as e:
+            print(' left_q_states \n {} \n  right_q_states \n {} \n  labels \n {}'.format(left_q_states, right_q_states,lables))
+            raise e
         self._elapsed_predictor_training_iters += 1
         self._write_training_summaries(loss)
 
