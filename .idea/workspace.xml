@@ -2,32 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="94e12fb3-9f69-4bcc-ad23-0addfde7c868" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/~/tmp/torcs/trainlog/log.log" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/~/tmp/torcs/trainlog0825-151728/log.log" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/~/tmp/torcs/trainlog0825-151827/log.log" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/~/tmp/torcs/trainlog0825-151852/log.log" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/~/tmp/torcs/trainlog0825-151920/log.log" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/~/tmp/torcs/trainlog0825-152103/log.log" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/~/tmp/torcs/trainlog0825-154517/log.log" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/~/tmp/torcs/trainlog0825-155005/log.log" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/~/tmp/torcs/trainlog0825-155234/log.log" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/~/tmp/torcs/trainlog0825-155301/log.log" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/~/tmp/torcs/trainlog0825-160237/log.log" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/~/tmp/torcs/trainlog0825-160520/log.log" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/~/tmp/torcs/trainlog0825-161224/log.log" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/~/tmp/torcs/trainlog0825-161347/log.log" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/~/tmp/torcs/trainlog0825-161843/log.log" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/~/tmp/torcs/trainlog0825-162806/log.log" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/~/tmp/torcs/trainlog0825-162925/log.log" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/~/tmp/torcs/trainlog0825-163316/log.log" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/~/tmp/torcs/trainlog0825-163526/log.log" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/~/tmp/torcs/trainlog0825-164403/log.log" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/~/tmp/torcs/trainlog0825-165515/log.log" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/~/tmp/torcs/trainlog0825-184605/log.log" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/~/tmp/torcs/trainlog0825-184619/log.log" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/~/tmp/torcs/trainlog0825-184804/log.log" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/~/tmp/torcs/trainlog0825-185136/log.log" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/~/tmp/torcs/trainlog0825-192500/log.log" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gitignore" afterPath="$PROJECT_DIR$/.gitignore" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
@@ -69,8 +43,8 @@
           <file leaf-file-name=".gitignore" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/.gitignore">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="288">
-                  <caret line="9" column="1" lean-forward="true" selection-start-line="9" selection-start-column="1" selection-end-line="9" selection-end-column="1" />
+                <state relative-caret-position="320">
+                  <caret line="10" column="0" lean-forward="true" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
                   <folding />
                 </state>
               </provider>
@@ -734,8 +708,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/.gitignore">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="288">
-          <caret line="9" column="1" lean-forward="true" selection-start-line="9" selection-start-column="1" selection-end-line="9" selection-end-column="1" />
+        <state relative-caret-position="320">
+          <caret line="10" column="0" lean-forward="true" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
           <folding />
         </state>
       </provider>
