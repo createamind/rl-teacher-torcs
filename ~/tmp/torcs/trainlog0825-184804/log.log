@@ -1,3 +1,0 @@
-[32m[0825 18:46:19 @logger.py:73][0m Argv: main3.py train --gpu 0
-[32m[0825 18:46:19 @main3.py:519][0m Backup source to ~/tmp/torcs/trainlog/source/
-[32m[0825 18:46:19 @main3.py:527][0m Create simulators, please wait...

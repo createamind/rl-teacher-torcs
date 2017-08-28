@@ -1,4 +1,0 @@
-[32m[0825 16:55:15 @logger.py:73][0m Argv: main3.py train --gpu 0
-[32m[0825 16:55:15 @main3.py:524][0m Backup source to ~/tmp/torcs/trainlog/source/
-[32m[0825 16:55:15 @main3.py:532][0m Create simulators, please wait...
-[32m[0825 16:55:30 @main3.py:549][0m [Batch-A3C] Train on gpu 0 and infer on gpu 0

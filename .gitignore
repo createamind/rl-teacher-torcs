@@ -7,3 +7,4 @@ MUJOCO_LOG.TXT
 .idea/*
 __pycache__/*
 human_feedback_api.egg-info/*
+~

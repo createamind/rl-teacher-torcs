@@ -2,12 +2,34 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="94e12fb3-9f69-4bcc-ad23-0addfde7c868" name="Default" comment="">
+      <change type="DELETED" beforePath="$PROJECT_DIR$/~/tmp/torcs/trainlog/log.log" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/~/tmp/torcs/trainlog0825-151728/log.log" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/~/tmp/torcs/trainlog0825-151827/log.log" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/~/tmp/torcs/trainlog0825-151852/log.log" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/~/tmp/torcs/trainlog0825-151920/log.log" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/~/tmp/torcs/trainlog0825-152103/log.log" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/~/tmp/torcs/trainlog0825-154517/log.log" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/~/tmp/torcs/trainlog0825-155005/log.log" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/~/tmp/torcs/trainlog0825-155234/log.log" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/~/tmp/torcs/trainlog0825-155301/log.log" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/~/tmp/torcs/trainlog0825-160237/log.log" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/~/tmp/torcs/trainlog0825-160520/log.log" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/~/tmp/torcs/trainlog0825-161224/log.log" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/~/tmp/torcs/trainlog0825-161347/log.log" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/~/tmp/torcs/trainlog0825-161843/log.log" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/~/tmp/torcs/trainlog0825-162806/log.log" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/~/tmp/torcs/trainlog0825-162925/log.log" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/~/tmp/torcs/trainlog0825-163316/log.log" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/~/tmp/torcs/trainlog0825-163526/log.log" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/~/tmp/torcs/trainlog0825-164403/log.log" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/~/tmp/torcs/trainlog0825-165515/log.log" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/~/tmp/torcs/trainlog0825-184605/log.log" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/~/tmp/torcs/trainlog0825-184619/log.log" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/~/tmp/torcs/trainlog0825-184804/log.log" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/~/tmp/torcs/trainlog0825-185136/log.log" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/~/tmp/torcs/trainlog0825-192500/log.log" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gitignore" afterPath="$PROJECT_DIR$/.gitignore" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/agents/parallel-trpo/parallel_trpo/rollouts.py" afterPath="$PROJECT_DIR$/agents/parallel-trpo/parallel_trpo/rollouts.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/autodrive/agent/simulator/gym_torcs.py" afterPath="$PROJECT_DIR$/autodrive/agent/simulator/gym_torcs.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/autodrive/agent/torcs2.py" afterPath="$PROJECT_DIR$/autodrive/agent/torcs2.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/rl_teacher/segment_sampling.py" afterPath="$PROJECT_DIR$/rl_teacher/segment_sampling.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/rl_teacher/teach.py" afterPath="$PROJECT_DIR$/rl_teacher/teach.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -24,7 +46,7 @@
             <entry file="file://$PROJECT_DIR$/rl_teacher/teach.py">
               <provider selected="true" editor-type-id="text-editor">
                 <state relative-caret-position="570">
-                  <caret line="154" column="38" lean-forward="true" selection-start-line="154" selection-start-column="38" selection-end-line="154" selection-end-column="38" />
+                  <caret line="154" column="38" lean-forward="false" selection-start-line="154" selection-start-column="38" selection-end-line="154" selection-end-column="38" />
                   <folding>
                     <element signature="e#0#9#0" expanded="true" />
                   </folding>
@@ -32,7 +54,7 @@
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="segment_sampling.py" pinned="false" current-in-tab="true">
+          <file leaf-file-name="segment_sampling.py" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/rl_teacher/segment_sampling.py">
               <provider selected="true" editor-type-id="text-editor">
                 <state relative-caret-position="275">
@@ -40,6 +62,16 @@
                   <folding>
                     <element signature="e#0#11#0" expanded="true" />
                   </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name=".gitignore" pinned="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/.gitignore">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="288">
+                  <caret line="9" column="1" lean-forward="true" selection-start-line="9" selection-start-column="1" selection-end-line="9" selection-end-column="1" />
+                  <folding />
                 </state>
               </provider>
             </entry>
@@ -79,16 +111,6 @@
               <provider selected="true" editor-type-id="text-editor">
                 <state relative-caret-position="363">
                   <caret line="84" column="9" lean-forward="false" selection-start-line="84" selection-start-column="0" selection-end-line="84" selection-end-column="9" />
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="torcs2_test.py" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/autodrive/agent/torcs2_test.py">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="124">
-                  <caret line="4" column="28" lean-forward="false" selection-start-line="4" selection-start-column="28" selection-end-line="4" selection-end-column="28" />
                   <folding />
                 </state>
               </provider>
@@ -175,12 +197,12 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/main2.py" />
-        <option value="$PROJECT_DIR$/.gitignore" />
         <option value="$PROJECT_DIR$/autodrive/agent/simulator/gym_torcs.py" />
         <option value="$PROJECT_DIR$/autodrive/agent/torcs2.py" />
         <option value="$PROJECT_DIR$/rl_teacher/segment_sampling.py" />
         <option value="$PROJECT_DIR$/agents/parallel-trpo/parallel_trpo/rollouts.py" />
         <option value="$PROJECT_DIR$/rl_teacher/teach.py" />
+        <option value="$PROJECT_DIR$/.gitignore" />
       </list>
     </option>
   </component>
@@ -606,13 +628,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/.gitignore">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="224">
-          <caret line="7" column="11" lean-forward="false" selection-start-line="7" selection-start-column="11" selection-end-line="7" selection-end-column="11" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/start_web.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -700,7 +715,7 @@
     <entry file="file://$PROJECT_DIR$/rl_teacher/teach.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="570">
-          <caret line="154" column="38" lean-forward="true" selection-start-line="154" selection-start-column="38" selection-end-line="154" selection-end-column="38" />
+          <caret line="154" column="38" lean-forward="false" selection-start-line="154" selection-start-column="38" selection-end-line="154" selection-end-column="38" />
           <folding>
             <element signature="e#0#9#0" expanded="true" />
           </folding>
@@ -714,6 +729,14 @@
           <folding>
             <element signature="e#0#11#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="288">
+          <caret line="9" column="1" lean-forward="true" selection-start-line="9" selection-start-column="1" selection-end-line="9" selection-end-column="1" />
+          <folding />
         </state>
       </provider>
     </entry>
