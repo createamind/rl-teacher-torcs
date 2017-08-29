@@ -11,7 +11,7 @@ from human_feedback_api.models import Comparison
 
 register = template.Library()
 
-ExperimentResource = namedtuple("ExperimentResource", ['name', 'num_responses', 'started_at', 'pretty_time_elapsed'])
+ExperimentResource = namedtuple("ExperimentResource", ['name', 'num_responses', 'started_at', 'pretty_time_elapsed','unlabel_num'])
 
 def _pretty_time_elapsed(start, end):
     total_seconds = (end - start).total_seconds()
@@ -21,6 +21,8 @@ def _pretty_time_elapsed(start, end):
 
 def _build_experiment_resource(experiment_name):
     comparisons = Comparison.objects.filter(experiment_name=experiment_name, responded_at__isnull=False)
+    unlabel_num=Comparison.objects.filter(experiment_name=experiment_name, responded_at__isnull=True).count()
+
     try:
         started_at = comparisons.order_by('-created_at').first().created_at
         pretty_time_elapsed = _pretty_time_elapsed(started_at, timezone.now())
@@ -31,7 +33,8 @@ def _build_experiment_resource(experiment_name):
         name=experiment_name,
         num_responses=comparisons.count(),
         started_at=started_at,
-        pretty_time_elapsed=pretty_time_elapsed
+        pretty_time_elapsed=pretty_time_elapsed,
+        unlabel_num=unlabel_num
     )
 
 def _all_comparisons(experiment_name, use_locking=True):

@@ -46,8 +46,8 @@ def train_parallel_trpo(
 
     run_indefinitely = (runtime <= 0)
 
-    if max_timesteps_per_episode is None:
-        max_timesteps_per_episode = gym.spec(env_id).timestep_limit
+    # if max_timesteps_per_episode is None:
+    #     max_timesteps_per_episode = gym.spec(env_id).timestep_limit
 
     learner = TRPO(
         max_kl=max_kl,
