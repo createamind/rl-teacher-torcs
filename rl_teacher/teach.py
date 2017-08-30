@@ -3,7 +3,7 @@ import os.path as osp
 import random
 from collections import deque
 from time import time, sleep
-
+import math
 import numpy as np
 import tensorflow as tf
 from keras import backend as K
@@ -142,12 +142,14 @@ class ComparisonRewardPredictor():
         })
         return q_state_reward_pred[0]
     def samples_from_path(self,path,segment_length):
-        path_length=len(path['obs'])
-        if path_length < segment_length:return None
-        pos_list=list(range(path_length - segment_length + 1))
 
-        segment_num=int(np.log2(path_length))
-        prob=[p /sum(pos_list) for p in pos_list]
+        path_length=len(path['obs'])
+        if path_length < 5*segment_length:return None
+        pos_list=list(range(path_length - segment_length + 1))
+        prb_list=[10*p for p in pos_list]
+
+        segment_num=int(math.log(path_length,30))
+        prob=[p /sum(prb_list) for p in prb_list]
         start_pos=np.random.choice(pos_list,segment_num,prob)
         segments=[]
         for pos in start_pos:
@@ -181,7 +183,8 @@ class ComparisonRewardPredictor():
 
         # Train our predictor every X steps
         if self._steps_since_last_training >= int(self._n_timesteps_per_predictor_training):
-            self.train_predictor()
+            for i in range(5):
+                self.train_predictor()
             self._steps_since_last_training -= self._steps_since_last_training
     def get_pair(self,segments):
         if len(segments)>1:
@@ -297,7 +300,7 @@ def main():
             print("No label limit given. We will request one label every few seconds")
             label_schedule = ConstantLabelSchedule(pretrain_labels=pretrain_labels)
 
-        logger.info("frames = {}".format('start !!!!!!!!!!!!!'))
+        # logger.info("frames = {}".format('start !!!!!!!!!!!!!'))
 
         print("Starting random rollouts to generate pretraining segments. No learning will take place...")
         pretrain_segments = segments_from_rand_rollout( n_desired_segments=pretrain_labels * 2,

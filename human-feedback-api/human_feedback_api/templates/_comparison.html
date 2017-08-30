@@ -13,7 +13,7 @@
             <div class="col-md-6 text-center">
                 <h3>Left</h3>
                 {% if ".mp4" in comparison.media_url_1 %}
-                    <video width="400px" loop>
+                    <video width="400px" controls="controls" autoplay="autoplay">
                         <source src="{{ comparison.media_url_1 }}" type="video/mp4"/>
                     </video>
                 {% else %}
@@ -33,7 +33,7 @@
             <div class="col-md-6 text-center">
                 <h3>Right</h3>
                 {% if ".mp4" in comparison.media_url_2 %}
-                    <video width="400px" loop>
+                    <video width="400px" controls="controls" autoplay="autoplay" >
                         <source src="{{ comparison.media_url_2 }}" type="video/mp4"/>
                     </video>
                 {% else %}

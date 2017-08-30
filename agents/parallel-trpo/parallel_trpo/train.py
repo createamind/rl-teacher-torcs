@@ -2,7 +2,7 @@ import os
 
 import multiprocess
 from time import clock as time
-
+from collections import deque
 import tensorflow as tf
 import numpy as np
 import gym
@@ -24,6 +24,25 @@ def print_stats(stats):
             v = "{:.4f}".format(v)
 
         print("{:38} {:>12}".format(k + ":", v))
+
+class  memory_rollout(deque):
+    """
+    Container for memory
+    """
+    def sample_path(self,num):
+        if num > int(np.log2(len(self))): num =int(np.log2(len(self)))
+        samples=np.random.choice(self,num)
+        assert samples[0]['avrewards']
+        # [s.pop('avrewards') for s in samples]
+        return samples
+    def add_path(self,paths):
+        for path in paths:
+            path['avrewards']=path['rewards'].mean()
+        items = [self.pop() for x in range(len(self))]
+        items.extend(paths)
+
+        items.sort(key= lambda x :x['avrewards'])
+        self.extend(items)
 
 def train_parallel_trpo(
         predictor,
@@ -58,6 +77,7 @@ def train_parallel_trpo(
 
     iteration = 0
     start_time = time()
+    Memory_roll=memory_rollout(maxlen=100)
 
     while run_indefinitely or time() < start_time + runtime:
         iteration += 1
@@ -68,6 +88,8 @@ def train_parallel_trpo(
 
         # run a bunch of async processes that collect rollouts
         paths, rollout_time = rollouts.rollout(timesteps_per_batch)
+        Memory_roll.add_path((paths))
+        paths=Memory_roll.sample_path(len(paths))
 
         # learn from that data
         stats, learn_time = learner.learn(paths)

@@ -58,7 +58,7 @@ def do_rollout(env, action_function):
         raw_ob, action, reward, done = env.step((action, 0., [0., 0.], [0., 0.]))
         ob=raw_ob[0:-1]
         distance=raw_ob[-1]
-        logger.info('agent {} running at distance {}'.format(env._agentIdent,distance))
+        # logger.info('agent {} running at distance {}'.format(env._agentIdent,distance))
         actions.append(action)
         rgb=env._cur_screen
 

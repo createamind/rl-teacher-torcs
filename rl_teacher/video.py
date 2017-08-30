@@ -32,7 +32,7 @@ class SegmentVideoRecorder(object):
         return self.predictor.predict_reward(path)
 
 def write_segment_to_video(segment, fname):
-    logger.info("write_segment_to_video = {}".format(fname))
+    # logger.info("write_segment_to_video = {}".format(fname))
 
     os.makedirs(osp.dirname(fname), exist_ok=True)
     frames = segment["human_obs"]
@@ -104,6 +104,7 @@ class ImageEncoder(object):
             '-vf', 'vflip',
             '-vcodec', 'libx264',
             '-pix_fmt', 'yuv420p',
+            # '-threads',14,
             self.output_path
         )
 
