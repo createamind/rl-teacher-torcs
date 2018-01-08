@@ -162,16 +162,16 @@ class _TorcsBot(object):
                 logger.info("[Bot]: {}: episode {}: max speed {} too small, maybe blocked, restart"
                             .format(self._name, self._agent._episodeCount, maxspeed))
                 self._reward = -1.
-                self._isOver = True
+                # self._isOver = True
             del self._hist_status[0]
         if status.isOver:
             logger.info("[Bot]: {}: internal over, maybe internal error".format(self._name))
             self._isOver = True
-        if np.cos(status.angle) < 0.5:  # Episode is terminated if the agent runs backward
-            logger.info("[Bot]: {}: episode {} runs backward, end race"
-                        .format(self._name, self._agent._episodeCount))
-            self._reward = -1.
-            self._isOver = True
+        # if np.cos(status.angle) < 0.5:  # Episode is terminated if the agent runs backward
+        #     logger.info("[Bot]: {}: episode {} runs backward, end race"
+        #                 .format(self._name, self._agent._episodeCount))
+        #     self._reward = -1.
+        #     self._isOver = True
         if _focusScaled.max() < 0:
             logger.info("[Bot]: {} episode {} focus no range, end race".format(self._name, self._agent._episodeCount))
             self._reward = -1.

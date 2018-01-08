@@ -65,7 +65,11 @@ class HumanComparisonCollector():
 
         self._comparisons = []
         self.experiment_name = experiment_name
+<<<<<<< HEAD
         self._upload_workers = multiprocessing.Pool(6)
+=======
+        self._upload_workers = multiprocessing.Pool(14)
+>>>>>>> 7a61d536740d4172e616e6d01bef6665e377801d
 
         if Comparison.objects.filter(experiment_name=experiment_name).count() > 0:
             raise EnvironmentError("Existing experiment named %s! Pick a new experiment name." % experiment_name)
