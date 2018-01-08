@@ -82,6 +82,9 @@ class TRPO(object):
         op = tf.concat(axis=0, values=[tf.reshape(v, [tf.size(v)]) for v in self.policy_vars])
         return op.eval(session=self.session)
 
+    def memory_replat(self):
+        self.memory=1
+
     # call this to set parameter values
     # TODO: CLEANUP!!!
     def _set_from_flat(self, theta):

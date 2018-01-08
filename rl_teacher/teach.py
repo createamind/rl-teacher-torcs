@@ -8,7 +8,7 @@ import numpy as np
 import tensorflow as tf
 from keras import backend as K
 from parallel_trpo.train import train_parallel_trpo
-from pposgd_mpi.run_mujoco import train_pposgd_mpi
+# from pposgd_mpi.run_mujoco import train_pposgd_mpi
 
 from rl_teacher.comparison_collectors import SyntheticComparisonCollector, HumanComparisonCollector
 # from rl_teacher.envs import get_timesteps_per_episode
@@ -122,12 +122,12 @@ class ComparisonRewardPredictor():
         segment_reward_pred_right = tf.reduce_sum(q_state_alt_reward_pred, axis=1)
         reward_logits = tf.stack([segment_reward_pred_left, segment_reward_pred_right], axis=1)  # (batch_size, 2)
 
-        self.labels = tf.placeholder(dtype=tf.int32, shape=(None,), name="comparison_labels")
+        self.labels = tf.placeholder(dtype=tf.float32, shape=(None,2), name="comparison_labels")
 
         # delta = 1e-5
         # clipped_comparison_labels = tf.clip_by_value(self.comparison_labels, delta, 1.0-delta)
 
-        data_loss = tf.nn.sparse_softmax_cross_entropy_with_logits(logits=reward_logits, labels=self.labels)
+        data_loss = tf.nn.sigmoid_cross_entropy_with_logits(labels=self.labels,logits=reward_logits)
 
         self.loss_op = tf.reduce_mean(data_loss)
 
@@ -143,9 +143,9 @@ class ComparisonRewardPredictor():
         return q_state_reward_pred[0]
     def samples_from_path(self,path,segment_length):
         path_length=len(path['obs'])
-        if path_length < segment_length:return None
+        if path_length < 5*segment_length:return None
         pos_list=list(range(path_length - segment_length + 1))
-
+        porob_list=[2*p for p in pos_list]
         segment_num=int(np.log2(path_length))
         prob=[p /sum(pos_list) for p in pos_list]
         start_pos=np.random.choice(pos_list,segment_num,prob)
@@ -181,11 +181,12 @@ class ComparisonRewardPredictor():
 
         # Train our predictor every X steps
         if self._steps_since_last_training >= int(self._n_timesteps_per_predictor_training):
-            self.train_predictor()
+            for i in range(5):
+                self.train_predictor()
             self._steps_since_last_training -= self._steps_since_last_training
     def get_pair(self,segments):
         if len(segments)>1:
-            start=random.randint(0,len(segments)-2)
+            start=random. randint(0,len(segments)-2)
             segments.sort(key=lambda d : d['maxdistance'])
             return segments[start],segments[start+1]
         else:return segments[0],segments[-1]
@@ -347,8 +348,9 @@ def main():
             seed=args.seed,
         )
     elif args.agent == "pposgd_mpi":
+        pass
 
-        train_pposgd_mpi(num_timesteps=num_timesteps, seed=args.seed, predictor=predictor)
+        # train_pposgd_mpi(num_timesteps=num_timesteps, seed=args.seed, predictor=predictor)
     else:
         raise ValueError("%s is not a valid choice for args.agent" % args.agent)
 

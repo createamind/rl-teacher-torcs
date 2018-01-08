@@ -104,6 +104,7 @@ class ImageEncoder(object):
             '-vf', 'vflip',
             '-vcodec', 'libx264',
             '-pix_fmt', 'yuv420p',
+            # '-threads',6,
             self.output_path
         )
 

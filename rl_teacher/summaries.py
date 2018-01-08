@@ -7,7 +7,7 @@ import tensorflow as tf
 
 CLIP_LENGTH = 1.5
 
-def make_summary_writer(name):
+def make_summary_writer(name: object) -> object:
     logs_path = osp.expanduser('~/tb/rl-teacher/%s' % (name))
     return tf.summary.FileWriter(logs_path)
 
@@ -27,7 +27,7 @@ def _pad_with_end_state(path, desired_length):
 class AgentLogger(object):
     """Tracks the performance of an arbitrary agent"""
 
-    def __init__(self, summary_writer, timesteps_per_summary=int(1e3)):
+    def __init__(self, summary_writer: object, timesteps_per_summary: object = int(1e3)) -> object:
         self.summary_step = 0
         self.timesteps_per_summary = timesteps_per_summary
 

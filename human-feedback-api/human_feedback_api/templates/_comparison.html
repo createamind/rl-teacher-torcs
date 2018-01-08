@@ -13,7 +13,7 @@
             <div class="col-md-6 text-center">
                 <h3>Left</h3>
                 {% if ".mp4" in comparison.media_url_1 %}
-                    <video width="400px" loop>
+                    <video width="400px" controls="controls" autoplay="autoplay">
                         <source src="{{ comparison.media_url_1 }}" type="video/mp4"/>
                     </video>
                 {% else %}
@@ -33,7 +33,7 @@
             <div class="col-md-6 text-center">
                 <h3>Right</h3>
                 {% if ".mp4" in comparison.media_url_2 %}
-                    <video width="400px" loop>
+                    <video width="400px" controls="controls" autoplay="autoplay">
                         <source src="{{ comparison.media_url_2 }}" type="video/mp4"/>
                     </video>
                 {% else %}
@@ -68,6 +68,21 @@
                     <input type="hidden" name="response" value="{{ 'abstain' }}">
                     <input class="btn btn-lg btn-default choice-abstain" type="submit" value="Can't tell">
                 </form>
+                <form style="padding-top:30px"
+                      action="/experiments/{{ experiment.name }}/ajax_response" method="post">
+                    {% csrf_token %}
+                    <input type="hidden" name="comparison_id" value="{{ comparison.id }}">
+                    <input type="hidden" name="response" value="{{ 'bothBad' }}">
+                    <input class="btn btn-lg btn-default choice-bothBad" type="submit" value="Both Bad">
+                </form>
+                <form style="padding-top:30px"
+                      action="/experiments/{{ experiment.name }}/ajax_response" method="post">
+                    {% csrf_token %}
+                    <input type="hidden" name="comparison_id" value="{{ comparison.id }}">
+                    <input type="hidden" name="response" value="{{ 'bothGood' }}">
+                    <input class="btn btn-lg btn-default choice-bothGood" type="submit" value="Both Good">
+                </form>
+
             </div>
         </div>
         <hr>

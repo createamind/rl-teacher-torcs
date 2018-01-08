@@ -108,8 +108,9 @@
             _.each({
                 left: 'left',
                 right: 'right',
-                // up: 'tie',
-                down: 'abstain'
+                up: 'bothGood',
+                down: 'bothBad',
+                space:'abstain'
             }, function (option, key) {
                 Mousetrap.bind(key, function () {
                     choose(option);

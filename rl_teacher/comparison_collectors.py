@@ -56,8 +56,8 @@ def _write_and_upload_video( local_path, segment):
     write_segment_to_video(segment, fname=local_path)
     # upload_to_gcs(local_path, gcs_path)
 def get_ip():
-    ni.ifaddresses('eno1')
-    ip = ni.ifaddresses('eno1')[ni.AF_INET][0]['addr']
+    ni.ifaddresses('enp2s0')
+    ip = ni.ifaddresses('enp2s0')[ni.AF_INET][0]['addr']
     return ip
 class HumanComparisonCollector():
     def __init__(self,  experiment_name):
@@ -65,7 +65,7 @@ class HumanComparisonCollector():
 
         self._comparisons = []
         self.experiment_name = experiment_name
-        self._upload_workers = multiprocessing.Pool(4)
+        self._upload_workers = multiprocessing.Pool(6)
 
         if Comparison.objects.filter(experiment_name=experiment_name).count() > 0:
             raise EnvironmentError("Existing experiment named %s! Pick a new experiment name." % experiment_name)
@@ -119,7 +119,7 @@ class HumanComparisonCollector():
 
     @property
     def labeled_decisive_comparisons(self):
-        return [comp for comp in self._comparisons if comp['label'] in [0, 1]]
+        return [comp for comp in self._comparisons if isinstance(comp['label'] ,list)]
 
     @property
     def unlabeled_comparisons(self):
@@ -131,9 +131,13 @@ class HumanComparisonCollector():
         for comparison in self.unlabeled_comparisons:
             db_comp = Comparison.objects.get(pk=comparison['id'])
             if db_comp.response == 'left':
-                comparison['label'] = 0
+                comparison['label'] = [1.,0.]
             elif db_comp.response == 'right':
-                comparison['label'] = 1
+                comparison['label'] = [0.,1.]
+            elif db_comp.response == 'bothGood':
+                comparison['label']=[1.,1.]
+            elif db_comp.response == 'bothBad':
+                comparison['label']=[0.,0.]
             elif db_comp.response == 'tie' or db_comp.response == 'abstain':
                 comparison['label'] = 'equal'
                 # If we did not match, then there is no response yet, so we just wait
